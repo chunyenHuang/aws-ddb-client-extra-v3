@@ -8,7 +8,6 @@ const {
   AWS_PROFILE,
   AWS_REGION,
   TEST_TABLE_NAME,
-  TEST_ITEM_ID,
 } = process.env;
 
 const config = {
@@ -19,17 +18,28 @@ const config = {
 };
 
 describe('DynamoDB', () => {
-  test('docClient', async () => {
-    const docClient = docClientExtra(config);
+  const docClient = docClientExtra(config);
+  const testId = `${Date.now()}`;
 
+  test('Create Item', async () => {
+    const res = await docClient.put({
+      TableName: TEST_TABLE_NAME,
+      Item: {
+        id: testId,
+      },
+    });
+    expect(res['$metadata']).toBeDefined();
+  });
+
+  test('Get Item', async () => {
     const res = await docClient.get({
       TableName: TEST_TABLE_NAME,
       Key: {
-        id: TEST_ITEM_ID,
+        id: testId,
       },
     });
 
     expect(res['$metadata']).toBeDefined();
-    expect(res.Item).toBeDefined();
+    expect(res.Item.id).toEqual(testId);
   });
 });

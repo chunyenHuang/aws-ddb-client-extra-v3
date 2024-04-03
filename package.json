@@ -18,11 +18,18 @@
   },
   "homepage": "https://github.com/chunyenHuang/aws-sdk-extra-v3#readme",
   "devDependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.540.0",
     "@aws-sdk/client-dynamodb": "^3.540.0",
+    "@aws-sdk/client-s3": "^3.540.0",
     "@aws-sdk/credential-providers": "^3.540.0",
     "@aws-sdk/lib-dynamodb": "^3.540.0",
     "dotenv": "^16.4.5",
     "eslint": "^7.2.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "jsonschema": "^1.4.1",
+    "uuid": "^9.0.1"
   }
 }

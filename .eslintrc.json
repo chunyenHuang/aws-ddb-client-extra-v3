@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "google"
   ],
   "rules": {
@@ -19,5 +20,6 @@
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module"
-  }
+  },
+  "parser": "babel-eslint"
 }
