@@ -19,6 +19,9 @@
   "homepage": "https://github.com/chunyenHuang/aws-sdk-extra-v3#readme",
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "^3.540.0",
+    "@aws-sdk/credential-providers": "^3.540.0",
+    "@aws-sdk/lib-dynamodb": "^3.540.0",
+    "dotenv": "^16.4.5",
     "eslint": "^7.2.0",
     "eslint-config-google": "^0.14.0"
   }
