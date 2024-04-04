@@ -17,29 +17,88 @@ const config = {
   }),
 };
 
-describe('DynamoDB', () => {
-  const docClient = docClientExtra(config);
-  const testId = `${Date.now()}`;
+let docClient;
 
-  test('Create Item', async () => {
-    const res = await docClient.put({
-      TableName: TEST_TABLE_NAME,
-      Item: {
-        id: testId,
-      },
+describe('a', () => {
+  describe('DynamoDB', () => {
+    const testId = `${Date.now()}`;
+
+    test('Create Item', async () => {
+      const translateConfig = {
+        marshallOptions: {
+          convertEmptyValues: false,
+          removeUndefinedValues: false,
+        },
+      };
+      docClient = docClientExtra(config, translateConfig);
+
+      const res = await docClient.put({
+        TableName: TEST_TABLE_NAME,
+        Item: {
+          id: testId,
+          emptyValue: '',
+          nullValue: null,
+          undefinedValue: undefined,
+        },
+      });
+      expect(res['$metadata']).toBeDefined();
     });
-    expect(res['$metadata']).toBeDefined();
+
+    test('Get Item', async () => {
+      const res = await docClient.get({
+        TableName: TEST_TABLE_NAME,
+        Key: {
+          id: testId,
+        },
+      });
+
+      expect(res['$metadata']).toBeDefined();
+      expect(res.Item.id).toEqual(testId);
+      console.log(res);
+    });
   });
 
-  test('Get Item', async () => {
-    const res = await docClient.get({
-      TableName: TEST_TABLE_NAME,
-      Key: {
-        id: testId,
-      },
+  describe('DynamoDB', () => {
+    const testId = `${Date.now()}`;
+
+    test('Create Item w/ removeUndefinedValues ', async () => {
+      const translateConfig = {
+        marshallOptions: {
+          convertEmptyValues: true,
+          removeUndefinedValues: true,
+        },
+      };
+      docClient = docClientExtra(config, translateConfig);
+
+      const res = await docClient.put({
+        TableName: TEST_TABLE_NAME,
+        Item: {
+          id: testId,
+          emptyValue: '',
+          nullValue: null,
+          undefinedValue: undefined,
+          nested: {
+            emptyValue: '',
+            nullValue: null,
+            undefinedValue: undefined,  
+          },
+        },
+      });
+      expect(res['$metadata']).toBeDefined();
     });
 
-    expect(res['$metadata']).toBeDefined();
-    expect(res.Item.id).toEqual(testId);
+
+    test('Get Item', async () => {
+      const res = await docClient.get({
+        TableName: TEST_TABLE_NAME,
+        Key: {
+          id: testId,
+        },
+      });
+
+      expect(res['$metadata']).toBeDefined();
+      expect(res.Item.id).toEqual(testId);
+      console.log(res);
+    });
   });
 });
