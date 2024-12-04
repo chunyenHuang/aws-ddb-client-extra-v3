@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "Query": {},
+    "Mutation": {
+      "type": "object",
+      "properties": {
+        "updateOrder": {
+          "type": "object",
+          "properties": {
+            "return": {
+              "$ref": "#/definitions/Order"
+            },
+            "arguments": {
+              "type": "object",
+              "properties": {
+                "input": {
+                  "$ref": "#/definitions/Order"
+                },
+                "condition": {
+                  "$ref": "#/definitions/Order"
+                }
+              },
+              "required": [
+                "input"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "ID",
+      "format": "uuid"
+    },
+    "Float": {
+      "type": "number",
+      "title": "Float",
+      "description": "Built-in Float"
+    },
+    "AWSDate": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "AWSDate",
+      "format": "date"
+    },
+    "AWSTimestamp": {
+      "type": "number",
+      "title": "AWSTimestamp"
+    },
+    "Int": {
+      "type": "number",
+      "title": "Int",
+      "description": "Built-in Int"
+    },
+    "String": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "String"
+    },
+    "AWSDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "AWSDateTime",
+      "format": "date-time"
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ID"
+        },
+        "date": {
+          "$ref": "#/definitions/AWSDate"
+        },
+        "datetime": {
+          "$ref": "#/definitions/AWSDateTime"
+        },
+        "details": {
+          "$ref": "#/definitions/OrderDetails"
+        },
+        "mealItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MealItems"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "datetime"
+      ],
+      "additionalProperties": false
+    },
+    "OrderDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/String",
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/definitions/String",
+          "type": "string"
+        },
+        "surcharges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Surcharges"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "MealItems": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/String",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/definitions/Int",
+          "type": "number"
+        },
+        "price": {
+          "$ref": "#/definitions/Float",
+          "type": "number"
+        },
+        "surcharges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Surcharges"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "quantity",
+        "price"
+      ],
+      "additionalProperties": false
+    },
+    "Surcharges": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/String",
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/definitions/Float",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "price"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
